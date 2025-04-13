@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { authOptions } from "~/auth";
+import { Button } from "~/components/ui/button";
 import { ModeToggle } from "~/components/ui/mode-toggle";
 import { Login, UserDropdown } from "~/features/login";
 import type { UserWithKeys } from "~/types";
@@ -57,6 +58,11 @@ export default async function RootLayout({
                       </Link>
 
                       <div className="flex items-center gap-2">
+                        <Link href="/post">
+                          <Button size="sm" variant="outline">
+                            Post
+                          </Button>
+                        </Link>
                         <ModeToggle />
                         {user?.publicKey ? (
                           <UserDropdown publicKey={user?.publicKey} />
