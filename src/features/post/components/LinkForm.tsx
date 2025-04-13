@@ -15,6 +15,10 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { usePostMutation } from "../hooks/usePostMutation";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import type { UserWithKeys } from "~/types";
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -29,6 +33,13 @@ const formSchema = z.object({
 });
 
 export function LinkForm() {
+  const router = useRouter();
+  const user = useSession();
+  const userWithKeys = user.data?.user as UserWithKeys;
+  const postMutation = usePostMutation();
+
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,11 +49,28 @@ export function LinkForm() {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    if (!userWithKeys.publicKey || !userWithKeys.secretKey) {
+      console.error("Missing public key or secret key");
+      return;
+    }
+
+    postMutation.mutate(
+      {
+        title: values.title,
+        url: values.url,
+        content: "",
+        tags: values.tags.map((tag) => ["t", tag]),
+        publicKey: userWithKeys.publicKey,
+        secretKey: userWithKeys.secretKey,
+      },
+      {
+        onSuccess: () => {
+          form.reset();
+          router.push("/");
+        },
+      },
+    );
   }
 
   return (
@@ -97,7 +125,14 @@ export function LinkForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={postMutation.isPending}>
+          {postMutation.isPending ? "Posting..." : "Submit"}
+        </Button>
+        {postMutation.isError && (
+          <p className="text-red-500 text-sm">
+            Error posting: {postMutation.error.message}
+          </p>
+        )}
       </form>
     </Form>
   );

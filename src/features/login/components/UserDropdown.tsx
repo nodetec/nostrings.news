@@ -22,8 +22,6 @@ type Props = {
 export function UserDropdown({ publicKey }: Props) {
   const nostrProfile = useNostrProfile(publicKey, true);
 
-  console.log(nostrProfile.data);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

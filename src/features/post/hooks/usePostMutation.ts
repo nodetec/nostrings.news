@@ -3,6 +3,7 @@ import type { EventTemplate } from "nostr-tools";
 import { DEFAULT_RELAYS } from "~/lib/constants";
 import { finishEvent } from "~/lib/nostr/finishEvent";
 import { parseUint8Array } from "~/lib/nostr/parseUint8Array";
+import { publish } from "~/lib/nostr/publish";
 // import { useAppState } from "~/store";
 
 interface PostPayload {
@@ -32,7 +33,7 @@ async function post(payload: PostPayload) {
   }
 
   const eventTemplate: EventTemplate = {
-    kind: 1070,
+    kind: 1080,
     content: payload.content,
     tags: tags,
     created_at: Math.floor(Date.now() / 1000),
@@ -51,15 +52,7 @@ async function post(payload: PostPayload) {
   console.log(event);
 
   if (relays.length > 0 && event) {
-    // await publish(event, relays);
-    // const eventPointer: EventPointer = {
-    //   id: event.id,
-    //   relays: relays,
-    //   author: event.pubkey,
-    //   kind: event.kind,
-    // };
-    // const nevent = nip19.neventEncode(eventPointer);
-    // redirectToSnippet(nevent);
+    await publish(event, relays);
     // useAppState.getState().setContent("");
     // useAppState.getState().setFilename("");
     // useAppState.getState().setDescription("");
