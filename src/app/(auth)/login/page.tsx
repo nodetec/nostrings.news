@@ -85,7 +85,7 @@ export default function UserAuthForm() {
           New to Nostr?{" "}
           <Link
             href="/register"
-            className="font-mono font-semibold text-blue-500 dark:text-blue-400"
+            className="font-mono font-semibold text-primary"
           >
             Create an account
           </Link>

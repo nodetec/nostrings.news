@@ -92,7 +92,7 @@ export default function RegisterForm() {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-mono font-semibold text-blue-500 dark:text-blue-400"
+            className="font-mono font-semibold text-primary"
           >
             Sign in
           </Link>
@@ -146,7 +146,7 @@ export default function RegisterForm() {
                 href="https://getalby.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="font-semibold text-blue-500 hover:underline dark:text-blue-400"
+                className="font-semibold text-primary hover:underline"
               >
                 nostr extension
               </a>
