@@ -58,11 +58,13 @@ export default async function RootLayout({
                       </Link>
 
                       <div className="flex items-center gap-2">
-                        <Link href="/post">
-                          <Button size="sm" variant="outline">
-                            Post
-                          </Button>
-                        </Link>
+                        {user?.publicKey && (
+                          <Link href="/post">
+                            <Button size="sm" variant="outline">
+                              Post
+                            </Button>
+                          </Link>
+                        )}
                         <ModeToggle />
                         {user?.publicKey ? (
                           <UserDropdown publicKey={user?.publicKey} />
