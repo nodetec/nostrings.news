@@ -28,9 +28,9 @@ export default async function RootLayout({
             <div className="sm:px-8">
               <div className="mx-auto w-full max-w-7xl lg:px-8">
                 <div className="mx-auto max-w-2xl lg:max-w-5xl">
-                  <div className="mb-8 flex w-full items-start justify-between gap-4">
-                    <div className="flex w-full items-center justify-between gap-2 border-b py-2 sm:px-4">
-                      <Link href="/" className="flex items-center py-1">
+                  <div className="flex w-full items-start justify-between gap-4">
+                    <div className="ml-2 flex w-full items-center justify-between gap-2 py-4 sm:ml-0 sm:px-4">
+                      <Link href="/" className="flex items-center">
                         {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
                         <svg
                           className="-ml-3.5 h-7 w-7"
